@@ -1,0 +1,15 @@
+<div class="p-8 space-y-12" phx-update="prepend" id="offices">
+    <%= for office <- @offices do %>
+        <div id="<%= office.id %>" class="w-2/3 h-28 p-4 flex justify-between items-center <%= if office.status, do: "bg-blue-300", else: "bg-red-300"  %>">
+            <p>City: <%= office.city %></p>
+            <p>Code: <%= office.code %></p>
+            <p>Price: <%= office.price %></p>
+            <p><%= if office.status, do: "Available", else: "Not available" %></p>
+            <button phx-click="toggle" phx-value-id="<%= office.id %>">
+                <%= if office.status, do: "Check Out", else: "Check In" %>
+            </button>
+        </div>
+    <% end %>   
+</div>
+<div id="footer" phx-hook="footerHook">Footer</div>
+<button phx-click="load_more" class="squared-btn">Load more...</button>

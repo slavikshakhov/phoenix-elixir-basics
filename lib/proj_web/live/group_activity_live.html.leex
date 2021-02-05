@@ -1,0 +1,12 @@
+<div class="p-8 bg-gray-200 w-screen h-screen">   
+    <h1 class="text-center text-red-500 font-medium text-xl">Team Activity</h1>
+    <div class="flex justify-center">        
+        <div class="card bg-white h-80 mt-8">
+            <p class="text-lg text-gray-600">So far you paied for <%= @num_of_people %> people</p>
+            <form phx-change="calc-price">
+                <input type="range" min="0" max="10" name="num_of_people" value=<%= @num_of_people %> />
+            </form>
+            <p>Total Price is: <%= number_to_currency(@total_price) %></p>
+        </div>
+    </div>
+</div>

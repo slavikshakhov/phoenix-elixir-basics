@@ -1,0 +1,24 @@
+<div class="p-8 bg-gray-200 w-screen h-screen">
+    <h1 class="text-center text-red-500 font-medium text-xl">Sales Dashboard</h1>
+    <div class="flex justify-center">        
+        <div class="flex items-center justify-around bg-white h-32 mt-8 rounded-lg shadow-xl" style="width: 50rem;">
+            <div class="flex flex-col space-y-3 items-center">
+                <p class="text-5xl text-blue-500 font-bold"><%= @orders %></p>
+                <p class="text-lg text-gray-500 font-medium">New Orders</p>
+            </div>
+            <div class="flex flex-col space-y-3 items-center">
+                <p class="text-5xl text-blue-500 font-bold"><%= number_to_currency(@sales) %></p>
+                <p class="text-lg text-gray-500 font-medium">Sales Amount</p>
+            </div>
+            <div class="flex flex-col space-y-3 items-center">
+                <p class="<%= if @orders == 0, do: "text-red-500", else: "text-5xl text-blue-500 font-bold" %>">
+                    <%= if @orders == 0, do: "No orders Yet!", else: "#{@satisfaction}%" %>
+                </p>
+                <p class="text-lg text-gray-500 font-medium">Satisfaction</p>
+            </div>
+            <button phx-click="calc" class="outlined-btn">Refresh</button>
+        </div>
+    </div>
+    
+    </div>
+</div>

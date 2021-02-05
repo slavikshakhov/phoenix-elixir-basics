@@ -1,0 +1,56 @@
+<div class="p-6">
+    <h1 class="text-4xl text-blue-500 text-center font-bold">Stores</h1>
+    <div class="flex justify-center mt-20">
+        
+        <table class="w-2/3 h-40 table-fixed">
+            <thead class="bg-green-300">
+                <tr>
+                    <th class="w-1/4 py-3">
+                        <%= live_patch "Name", to: Routes.live_path(@socket, __MODULE__, sort_by: "name", sort_order: toggle_order(@options.sort_order)) %>
+                    </th>
+                    <th class="w-1/4 py-3">Description</th>
+                    <th class="w-1/4 py-3">Rating</th>
+                    <th class="w-1/4 py-3">Open</th>
+                </tr>
+            </thead>
+            <tbody class="bg-red-200">
+                <%= for store <- @stores do %>
+                    <tr class="pb-5">
+                        <td class="text-center border border-gray-500"><%= store.name %></td>
+                        <td class="text-center border border-gray-500"><%= store.description %></td>
+                        <td class="text-center border border-gray-500"><%= store.rating %></td>
+                        <td class="text-center border border-gray-500"><%= store.open %></td>
+                    </tr>
+                <% end %>
+               
+            </tbody>
+        </table>
+        
+    </div>
+    <div class="flex justify-center mt-6 space-x-1">
+        <%= if @options.page > 1 do %>
+            <div class="centering-box px-3 py-2 rounded-md bg-blue-600 text-white">                
+                <%= pagination_link(@socket, "Previous", @options.page - 1, @options) %>
+            </div>
+        <% end %>
+        
+        <%= for page <- (@options.page - 2) .. (@options.page + 2), page > 0 do %>            
+            <div class="centering-box px-2 py-2 rounded-md bg-red-400 text-white">               
+                <%= pagination_link(@socket, page, page, @options) %>
+            </div>
+        <% end %>
+       
+        <div class="centering-box px-3 py-2 rounded-md bg-blue-600 text-white">
+            <%= pagination_link(@socket, "Next", @options.page + 1, @options) %>
+        </div>
+        <div class="w-52"></div>
+        <form phx-change="set_per_page">
+            <select name="per_page" class="bg-blue-300 p-2 focus:outline-none">
+                <%= options_for_select([3, 5, 7, 9], @options.per_page)  %>
+            </select>
+            <label for="per_page">Per Page</label>
+        </form>
+        
+    </div>
+</div>
+<%= inspect @options %>

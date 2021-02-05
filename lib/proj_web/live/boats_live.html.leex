@@ -1,0 +1,34 @@
+<div class="w-screen h-screen p-6">
+    <p class="text-center text-3xl text-blue-500 font-semibold">Find an Boat</p>
+    <div class="flex justify-center items-center space-x-10 mt-5">        
+        <form class="flex items-center space-x-1" phx-change="filter">
+            <select name="type">
+                <%= options_for_select(select_options(), @type) %>
+            </select>
+
+            <input type="hidden" name="prices[]" value="" hidden />
+            <%= for price <- ["$", "$$", "$$$"] do %>
+                <%= checkbox_render(%{price: price, checked: price in @prices}) %>
+            <% end %>           
+        </form>
+    </div>
+    <%= inspect @prices %>
+    <%= inspect @type %>
+    
+    <div class="w-3/4 mx-auto mt-6">
+        <%= for boat <- @boats do %>
+            <div class="w-full flex items-center justify-between mt-2 p-3
+                     <%= if boat.available, do: "bg-gray-300", else: "bg-red-300" %>">
+                <div class="">
+                    <p><%= boat.type %> boat</p>
+                </div>
+                <div class="flex flex-col">
+                    <p><%= boat.price %></p>
+                    <p><%= if boat.available, do: "available", else: "Not Available" %></p>                    
+                </div>            
+            </div>            
+        <% end %>
+    </div>
+</div>
+
+

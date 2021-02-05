@@ -1,0 +1,23 @@
+<div class="p-9">
+    <h1 class="text-center text-5xl text-gray-600 font-bold">Posts</h1>
+    
+    <div class="flex justify-between space-x-24 mt-24">
+        <div class="w-1/6 bg-gray-300 flex flex-col align-center space-y-4">
+            <%= for post <- @posts do %>
+                <p class="w-full p-4 <%= if post == @selected_post, do: "bg-red-300", else: "bg-blue-300" %>"><%= live_patch post.title, 
+                    to: Routes.live_path(@socket, __MODULE__, id: post.id)                    
+                    %></p>
+            <% end %>
+        </div>
+        <div class="w-5/6 p-8 space-y-5 bg-red-100">
+            <div class="flex justify-center items-center space-x-3">
+                <h1 class="text-2xl text-blue-500"><%= @selected_post.title %></h1>
+                <span class="<%= if @selected_post.active, do: "bg-blue-500", else: "bg-red-500" %> rounded-md p-3 text-white">
+                    <%= if @selected_post.active, do: "Active", else: "Inactive" %>
+                </span>
+            </div>            
+            <p class="text-gray-600 text-md"><%= @selected_post.description %></p>            
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,35 @@
+<div class="p-10 space-y-5">
+    <%= for office <- @offices do %>
+        <div class="p-5 bg-red-200 rounded-md">
+            <h1 class="text-blue-500 text-xl font-medium text-center"><%= office.city %></h1>
+            <p>City: <%= office.city %></p>
+            <p>Status: <%= if office.status, do: "Available", else: "Not Available" %></p>
+            <p>Price: <%= office.price %></p>
+        </div>        
+    <% end %>
+    <div class="flex justify-center mt-6 space-x-1">
+        <%= if @options.page > 1 do %>
+            <div class="centering-box px-3 py-2 rounded-md bg-blue-600 text-white">                
+                <%= pagination_link(@socket, "Previous", @options.page - 1, @options.per_page) %>
+            </div>
+        <% end %>
+        
+        <%= for page <- (@options.page - 2) .. (@options.page + 2), page > 0 do %>            
+            <div class="centering-box px-2 py-2 rounded-md bg-red-400 text-white">               
+                <%= pagination_link(@socket, page, page, @options.per_page) %>
+            </div>
+        <% end %>
+       
+        <div class="centering-box px-3 py-2 rounded-md bg-blue-600 text-white">
+            <%= pagination_link(@socket, "Next", @options.page + 1, @options.per_page) %>
+        </div>
+        <div class="w-52"></div>
+        <form phx-change="set_per_page">
+            <select name="per_page" class="bg-blue-300 p-2 focus:outline-none">
+                <%= options_for_select([3, 5, 7, 9], @options.per_page)  %>
+            </select>
+            <label for="per_page">Per Page</label>
+        </form>
+        
+    </div>
+</div>
